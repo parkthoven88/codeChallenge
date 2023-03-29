@@ -51,7 +51,7 @@ for item in old_data:
             quantity_of_hats += details_item['quantity']
 
 
-        # total revenue for each vendor
+        # Total revenue for each vendor
         if update_item['vendor'] in vendor_revenue:
             vendor_revenue[update_item['vendor']] += details_item['revenue']
         else:
