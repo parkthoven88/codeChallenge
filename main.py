@@ -13,6 +13,7 @@ update_data = []
 # Initialize variables
 total_revenue = 0
 quantity_of_hats = 0
+max_ice_quantity = 0
 customer_id = ""
 
 # Create a dictionary to store reveue for each vendor
@@ -36,8 +37,19 @@ for item in old_data:
         details_item['price'] = value['price']
         details_item['revenue'] = value['quantity'] * value['price']
 
+
         # Populate 'item,'quantity','price', and 'revenue' into details
         update_item['details'].append(details_item)
+
+
+        # Calculate total revenue of all items
+        total_revenue += details_item['revenue']
+
+
+        # Calculate quantity of hats
+        if details_item['item'] == "hat":
+            quantity_of_hats += details_item['quantity']
+
 
         # total revenue for each vendor
         if update_item['vendor'] in vendor_revenue:
@@ -46,27 +58,14 @@ for item in old_data:
             vendor_revenue[update_item['vendor']] = details_item['revenue']
 
 
-        # Calculate total revenue of all items
-        total_revenue += details_item['revenue']
-
-
-
-        # Calculate quantity of hats
-        if details_item['item'] == "hat":
-            quantity_of_hats += details_item['quantity']
-
-
-
         # Parse the date string and extract the month information
         str_date = datetime.strptime(update_item['date'],'%m/%d/%Y')
         if str_date.month == 10 and details_item['item'] == "ice":
-            count = 0
-            if details_item['quantity'] > count:
-                count = details_item['quantity']
+            if details_item['quantity'] > max_ice_quantity:
+                max_ice_quantity = details_item['quantity']
                 customer_id = update_item['customerId']
 
         
-
     # Finalize all feilds to transfer into update data
     update_data.append(update_item)
 
@@ -83,7 +82,7 @@ print(f"The total revenue of all items is ${total_revenue}.")
 
 # 2. Vendor with the most revenue
 max_vendor = max(vendor_revenue, key=vendor_revenue.get)
-print(f"The vendor who made with most revenue is '{max_vendor}'.\nThe revenue is ${vendor_revenue[max_vendor]}.")
+print(f"The vendor who made with most revenue is '{max_vendor}'. The revenue is ${vendor_revenue[max_vendor]}.")
 
 # 3. Quantity of hats sold (items where the key is exactly 'hat')
 print(f"The quantity of hats sold is {quantity_of_hats}.")
@@ -91,24 +90,27 @@ print(f"The quantity of hats sold is {quantity_of_hats}.")
 # 4. ID of the customer that bought the most ice in October
 print(f"ID of the customer that bought the most ice in Oct is '{customer_id}'.")
 
-#sample output
+
+#    ---------------
+#   | sample output |
+#    ---------------
 
 # The total revenue of all items is $7536.
-# The vendor who made with most revenue is 'partyco'.
-# The revenue is $2969.
+# The vendor who made with most revenue is 'partyco'. The revenue is $2969.
 # The quantity of hats sold is 115.
-# ID of the customer that bought the most ice in Oct is '7b4cfdd5-67e3-415f-b24e-d1fae5befd2e'.
+# ID of the customer that bought the most ice in Oct is 'd7aa81e3-2991-474b-87b8-85ce12a7d3ea'.
 
 
-
-# ******* See the update.json file from implementation *******
+#        -----------------------------------------------------------
+# ****** | See the update.json file is created after implementation | *******
+#        -----------------------------------------------------------
 # [
 #  {
 #   "id": 1,
 #   "vendor": "acme",
 #   "date": "03/03/2017",
 #   "customerId": "8baa6dea-cc70-4748-9b27-b174e70e4b66",
-#   "details": [
+#   "details": [   
 #    {
 #     "item": "hat",
 #     "quantity": 14,
