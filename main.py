@@ -50,11 +50,14 @@ for item in old_data:
         total_revenue += details_item['revenue']
 
 
+
         # Calculate quantity of hats
         if details_item['item'] == "hat":
             quantity_of_hats += details_item['quantity']
 
-        #Parse the date string and extract the month information
+
+
+        # Parse the date string and extract the month information
         str_date = datetime.strptime(update_item['date'],'%m/%d/%Y')
         if str_date.month == 10 and details_item['item'] == "ice":
             count = 0
@@ -78,15 +81,85 @@ with open("update.json", "w") as outfile:
 # 1. Total revenue (sum of quantity times price of all items)
 print(f"The total revenue of all items is ${total_revenue}.")
 
-# 1. Vendor with the most revenue
+# 2. Vendor with the most revenue
 max_vendor = max(vendor_revenue, key=vendor_revenue.get)
 print(f"The vendor who made with most revenue is '{max_vendor}'.\nThe revenue is ${vendor_revenue[max_vendor]}.")
 
-# 1. Quantity of hats sold (items where the key is exactly 'hat')
+# 3. Quantity of hats sold (items where the key is exactly 'hat')
 print(f"The quantity of hats sold is {quantity_of_hats}.")
 
-# 1. ID of the customer that bought the most ice in October
+# 4. ID of the customer that bought the most ice in October
 print(f"ID of the customer that bought the most ice in Oct is '{customer_id}'.")
 
+#sample output
 
-print
+# The total revenue of all items is $7536.
+# The vendor who made with most revenue is 'partyco'.
+# The revenue is $2969.
+# The quantity of hats sold is 115.
+# ID of the customer that bought the most ice in Oct is '7b4cfdd5-67e3-415f-b24e-d1fae5befd2e'.
+
+
+
+# ******* See the update.json file from implementation *******
+# [
+#  {
+#   "id": 1,
+#   "vendor": "acme",
+#   "date": "03/03/2017",
+#   "customerId": "8baa6dea-cc70-4748-9b27-b174e70e4b66",
+#   "details": [
+#    {
+#     "item": "hat",
+#     "quantity": 14,
+#     "price": 8,
+#     "revenue": 112
+#    },
+#    {
+#     "item": "cake",
+#     "quantity": 9,
+#     "price": 3,
+#     "revenue": 27
+#    },
+#    {
+#     "item": "ice",
+#     "quantity": 10,
+#     "price": 5,
+#     "revenue": 50
+#    },
+#    {
+#     "item": "candy",
+#     "quantity": 6,
+#     "price": 8,
+#     "revenue": 48
+#    }
+#   ]
+#  },
+#  {
+#   "id": 2,
+#   "vendor": "acme",
+#   "date": "08/23/2017",
+#   "customerId": "d2584a20-7490-499a-83be-d7cea4a0e260",
+#   "details": [
+#    {
+#     "item": "cake",
+#     "quantity": 8,
+#     "price": 1,
+#     "revenue": 8
+#    },
+#    {
+#     "item": "punch",
+#     "quantity": 19,
+#     "price": 7,
+#     "revenue": 133
+#    },
+#    {
+#     "item": "bouncy house",
+#     "quantity": 4,
+#     "price": 9,
+#     "revenue": 36
+#    }
+#   ]
+#  },
+#  {
+# ...............
